@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package services;
+
+enum ProdAreas { //枚举类型用于区分不同区域商品
+    A = 0;
+    B = 1;
+    C = 2;
+}
+
+message ProdRequest {
+     int32 prod_id = 1; //传入的商品ID
+     ProdAreas prod_area = 2;
+}
+
+message ProdResponse {
+     int32 prod_stock = 1; //商品库存
+}
+
+message QuerySize {
+    int32 size = 1; //页尺寸，1不是默认值，是顺序
+}
+
+message ProdResponseList {
+    repeated ProdResponse prod_res = 1; //repeated表示可以返回多次,在golang里表示[]ProdResponse
+}
+
+service ProdService {
+   rpc GetProdStock (ProdRequest) returns (ProdResponse) {
+         option (google.api.http) = {
+         get: "/v1/prod/{prod_id}"
+      };
+   };
+   rpc GetProdStocks (QuerySize) returns (ProdResponseList) {}
+}

@@ -8,6 +8,15 @@ type ProdService struct {
 
 }
 
+func (this *ProdService) GetProdInfo(ctx context.Context, request *ProdRequest) (*ProdModel, error) {
+	ret := ProdModel{
+		ProdId: 101,
+		ProdName: "测试商品",
+		ProdPrice: 20.5,
+		}
+	return &ret, nil
+}
+
 func (this *ProdService) GetProdStock(ctx context.Context, request *ProdRequest) (*ProdResponse, error) {
 	var stock int32
 	if request.ProdArea == ProdAreas_A {

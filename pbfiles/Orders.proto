@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+import "Models.proto";
+package services;
+
+message OrderRequest {
+    OrderMain order_main = 1;
+}
+
+message OrderResponse {
+    string status = 1;
+    string message = 2;
+}
+
+service OrderService {
+    // rpc NewOrder(OrderMain) returns (OrderResponse) {
+    rpc NewOrder(OrderRequest) returns (OrderResponse) {
+          option (google.api.http) = {
+             post: "/v1/orders"
+             body: "order_main" //与message OrderRequest下的order_main绑定
+          };
+    }
+
+}
+

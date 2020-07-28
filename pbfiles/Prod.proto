@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 import "google/api/annotations.proto";
-
+import "Models.proto";
 package services;
 
 enum ProdAreas { //枚举类型用于区分不同区域商品
@@ -34,4 +34,5 @@ service ProdService {
       };
    };
    rpc GetProdStocks (QuerySize) returns (ProdResponseList) {}
+   rpc GetProdInfo (ProdRequest) returns (ProdModel) {}
 }
